@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Input } from 'react-native-elements';
+import _sumBy from 'lodash/sumBy';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as WebBrowser from 'expo-web-browser';
 
 import { MonoText } from '../components/StyledText';
+import { TextList } from '../components';
 
 export default function HomeScreen() {
-  const [count, setCount] = useState(0);
+  const [expenses, setExpenses] = useState(ALL_EXPENSES);
 
   const ALL_EXPENSES = [
     { id: 1, name: 'Buy a book', amount: 20 },
@@ -19,53 +21,32 @@ export default function HomeScreen() {
     { id: 7, name: 'Buy boots', amount: 400 }
   ];
 
+  let totalExpense = _sumBy(ALL_EXPENSES, 'amount');
+
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}>
-          <Text style={styles.getStartedText}>You clicked {count} times</Text>
-          <Button
-            onPress={() => setCount(count + 1)}
-            title='Increase the count'
-            type='outline'
-          ></Button>
-          <Button
-            onPress={() => setCount(count - 1)}
-            title=' Decrease the count'
-            type='solid'
-          ></Button>
-          <Image
-            source={
-              __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
-            }
-            style={styles.welcomeImage}
-          />
-        </View>
+      <View style={styles.welcomeContainer}>
+        <Input placeholder='Type of expense' />
+        <Input placeholder='amount' />
 
-        <View style={styles.getStartedContainer}>
-          <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <MonoText>screens/HomeScreen.js</MonoText>
-          </View>
+        <Button onPress={() => setExpenses(expenses + 1)} title='Add' type='outline'></Button>
+      </View>
 
-          <Text style={styles.getStartedText}>
-            Change any of the text, save the file, and your app will automatically reload.
-          </Text>
+      <View style={styles.getStartedContainer}>
+        <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+          <MonoText>Expenses list:</MonoText>
         </View>
+      </View>
 
-        <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
+      <View style={styles.listContainer}>
+        <TextList noBottomDivider data={ALL_EXPENSES} />
+      </View>
 
       <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
+        <Text style={styles.tabBarInfoText}>Total Expense is :</Text>
 
         <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>navigation/BottomTabNavigator.js</MonoText>
+          <MonoText style={styles.codeHighlightText}>{totalExpense}</MonoText>
         </View>
       </View>
     </View>
@@ -110,6 +91,9 @@ function handleHelpPress() {
 }
 
 const styles = StyleSheet.create({
+  listContainer: {
+    flex: 2
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff'
