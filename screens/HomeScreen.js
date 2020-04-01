@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Button, Input } from 'react-native-elements';
+import { Button, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Input } from 'react-native-elements';
 import _sumBy from 'lodash/sumBy';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as WebBrowser from 'expo-web-browser';
@@ -10,6 +10,8 @@ import { TextList } from '../components';
 
 export default function HomeScreen() {
   const [expenses, setExpenses] = useState(ALL_EXPENSES);
+  const [name, setName] = useState('');
+  const [amount, setAmount] = useState('');
 
   const ALL_EXPENSES = [
     { id: 1, name: 'Buy a book', amount: 20 },
@@ -23,13 +25,39 @@ export default function HomeScreen() {
 
   let totalExpense = _sumBy(ALL_EXPENSES, 'amount');
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.welcomeContainer}>
-        <Input placeholder='Type of expense' />
-        <Input placeholder='amount' />
+  const handleSubmitForm = () => {
+    //check whether the name is not empty and the amount is not negative
+    if (name !== '' && amount > 0) {
+      // single expense object
+      const expense = { name, amount };
+      // do not override previous values in the array
+      // use spread operator to access previous values
+      setExpenses([...expenses, expense]); // !!! INVALID ATTEMPT TO SPREAD NON-ITERABLE INSTANCE.
 
-        <Button onPress={() => setExpenses(expenses + 1)} title='Add' type='outline'></Button>
+      // clean input fields
+      setName('');
+      setAmount('');
+    } else {
+      console.log('Invalid expense name or the amount');
+    }
+  };
+
+  const handleName = (event) => {
+    console.log('Name ', event);
+    setName(event);
+  };
+
+  const handleAmount = (event) => {
+    console.log('Amount ', event);
+    setAmount(event);
+  };
+
+  return (
+    <View style={styles.flexContainer}>
+      <View style={styles.welcomeContainer}>
+        <Input placeholder='Type of expense' value={name} onChangeText={handleName} />
+        <Input placeholder='amount' value={amount} onChangeText={handleAmount} />
+        <Button onPress={handleSubmitForm} title='Add'></Button>
       </View>
 
       <View style={styles.getStartedContainer}>
@@ -38,8 +66,8 @@ export default function HomeScreen() {
         </View>
       </View>
 
-      <View style={styles.listContainer}>
-        <TextList noBottomDivider data={ALL_EXPENSES} />
+      <View style={styles.flexContainer}>
+        <TextList style={styles.listContainer} noBottomDivider data={ALL_EXPENSES} />
       </View>
 
       <View style={styles.tabBarInfoContainer}>
@@ -57,47 +85,15 @@ HomeScreen.navigationOptions = {
   header: null
 };
 
-function DevelopmentModeNotice() {
-  if (__DEV__) {
-    const learnMoreButton = (
-      <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
-        Learn more
-      </Text>
-    );
-
-    return (
-      <Text style={styles.developmentModeText}>
-        Development mode is enabled: your app will be slower but you can use useful development
-        tools. {learnMoreButton}
-      </Text>
-    );
-  } else {
-    return (
-      <Text style={styles.developmentModeText}>
-        You are not in development mode: your app will run at full speed.
-      </Text>
-    );
-  }
-}
-
-function handleLearnMorePress() {
-  WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/workflow/development-mode/');
-}
-
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/get-started/create-a-new-app/#making-your-first-change'
-  );
-}
-
 const styles = StyleSheet.create({
   listContainer: {
     flex: 2
   },
-  container: {
+  flexContainer: {
     flex: 1,
     backgroundColor: '#fff'
   },
+
   developmentModeText: {
     marginBottom: 20,
     color: 'rgba(0,0,0,0.4)',
