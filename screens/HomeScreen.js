@@ -16,7 +16,6 @@ const ALL_EXPENSES = [
   { id: 5, name: 'Book a concert ticket', amount: 50 },
   { id: 6, name: 'Buy birthday present', amount: 100 },
   { id: 7, name: 'Buy boots', amount: 400 },
-  { id: 7, name: 'Buy boots', amount: 1000 },
 ];
 
 export default function HomeScreen() {
@@ -31,7 +30,7 @@ export default function HomeScreen() {
       setName('');
       setAmount('');
     } else {
-      console.log('Invalid expense name or the amount');
+      console.log('Invalid expense name or amount');
     }
   };
 
@@ -43,6 +42,8 @@ export default function HomeScreen() {
   const handleAmount = (event) => {
     console.log('Amount', event);
     setAmount(parseInt(event, 10));
+    // transforming sting into integer value;
+    // input field gives a sting but I need an integer in order to sum in total amount
   };
 
   return (
