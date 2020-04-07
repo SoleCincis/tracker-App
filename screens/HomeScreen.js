@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Input } from 'react-native-elements';
-import _sum from 'lodash/sumBy';
+import _sumBy from 'lodash/sumBy';
 
 import * as WebBrowser from 'expo-web-browser';
 
@@ -15,8 +15,10 @@ const ALL_EXPENSES = [
   { id: 4, name: 'Buy speakers', amount: 300 },
   { id: 5, name: 'Book a concert ticket', amount: 50 },
   { id: 6, name: 'Buy birthday present', amount: 100 },
-  { id: 7, name: 'Buy boots', amount: 400 }
+  { id: 7, name: 'Buy boots', amount: 400 },
+  { id: 7, name: 'Buy boots', amount: 1000 },
 ];
+
 export default function HomeScreen() {
   const [expenses, setExpenses] = useState(ALL_EXPENSES);
   const [name, setName] = useState('');
@@ -24,10 +26,6 @@ export default function HomeScreen() {
 
   const handleSubmitForm = () => {
     if (name !== '' && amount > 0) {
-      console.log('string?', amount);
-      // parseFloat(amount);
-      // amount.toString();
-      console.log('integer?', amount);
       const expense = { name, amount };
       setExpenses([...expenses, expense]);
       setName('');
@@ -43,8 +41,8 @@ export default function HomeScreen() {
   };
 
   const handleAmount = (event) => {
-    console.log('Amount ', event);
-    setAmount(event);
+    console.log('Amount', event);
+    setAmount(parseInt(event, 10));
   };
 
   return (
@@ -69,7 +67,7 @@ export default function HomeScreen() {
         <Text style={styles.tabBarInfoText}>Total Expense is :</Text>
 
         <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>{_sum(expenses, 'amount')}</MonoText>
+          <MonoText style={styles.codeHighlightText}>{_sumBy(expenses, 'amount')}</MonoText>
         </View>
       </View>
     </View>
