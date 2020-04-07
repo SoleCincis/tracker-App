@@ -42,8 +42,8 @@ export default function HomeScreen() {
   const handleAmount = (event) => {
     console.log('Amount', event);
     setAmount(parseInt(event, 10));
-    // transforming sting into integer value;
-    // input field gives a sting but I need an integer in order to sum in total amount
+    // transforming string into integer value;
+    // input field gives a string but I need an integer in order to sum in total amount
   };
 
   return (
