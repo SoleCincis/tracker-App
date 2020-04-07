@@ -19,7 +19,7 @@ export class TextListItem extends React.PureComponent {
         title={<MonoText>{name}</MonoText>}
         subtitle={<MonoText>{amount}</MonoText>}
         bottomDivider={noBottomDivider ? null : true}
-        containerStyle={{ backgroundColor: 'yellow', paddingBottom: 0 }}
+        containerStyle={{ backgroundColor: 'yellow', padding: 10 }}
       />
     );
   }
