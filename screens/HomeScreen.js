@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Button, Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { AsyncStorage, Button, Platform, StyleSheet, Text, View } from 'react-native';
 import { Input } from 'react-native-elements';
 import _sumBy from 'lodash/sumBy';
 
@@ -8,18 +8,18 @@ import * as WebBrowser from 'expo-web-browser';
 import { MonoText } from '../components/StyledText';
 import { TextList } from '../components';
 
-const ALL_EXPENSES = [
-  { id: 1, name: 'Buy a book', amount: 20 },
-  { id: 2, name: 'Buy dog food', amount: 5 },
-  { id: 3, name: 'Book a flight ticket', amount: 225 },
-  { id: 4, name: 'Buy speakers', amount: 300 },
-  { id: 5, name: 'Book a concert ticket', amount: 50 },
-  { id: 6, name: 'Buy birthday present', amount: 100 },
-  { id: 7, name: 'Buy boots', amount: 400 },
-];
-
 export default function HomeScreen() {
-  const [expenses, setExpenses] = useState(ALL_EXPENSES);
+  const [expenses, setExpenses] = useState([]);
+
+  const initializeData = async () => {
+    const storedExpenses = JSON.parse(await AsyncStorage.getItem('expenses'));
+    setExpenses(storedExpenses ? storedExpenses : []);
+    console.log('stored Expenses', storedExpenses);
+  };
+  useEffect(() => {
+    initializeData();
+  }, []);
+
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
 
@@ -27,6 +27,9 @@ export default function HomeScreen() {
     if (name !== '' && amount > 0) {
       const expense = { name, amount };
       setExpenses([...expenses, expense]);
+
+      AsyncStorage.setItem('expenses', JSON.stringify(expenses));
+
       setName('');
       setAmount('');
     } else {
