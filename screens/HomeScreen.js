@@ -10,26 +10,25 @@ import { TextList } from '../components';
 
 export default function HomeScreen() {
   const [expenses, setExpenses] = useState([]);
+  const [name, setName] = useState('');
+  const [amount, setAmount] = useState('');
 
   const initializeData = async () => {
     const storedExpenses = JSON.parse(await AsyncStorage.getItem('expenses'));
     setExpenses(storedExpenses ? storedExpenses : []);
     console.log('stored Expenses', storedExpenses);
   };
+
   useEffect(() => {
     initializeData();
   }, []);
 
-  const [name, setName] = useState('');
-  const [amount, setAmount] = useState('');
-
   const handleSubmitForm = () => {
     if (name !== '' && amount > 0) {
       const expense = { name, amount };
-      setExpenses([...expenses, expense]);
-
-      AsyncStorage.setItem('expenses', JSON.stringify(expenses));
-
+      const updatedExpenses = [...expenses, expense];
+      setExpenses(updatedExpenses);
+      AsyncStorage.setItem('expenses', JSON.stringify(updatedExpenses));
       setName('');
       setAmount('');
     } else {
