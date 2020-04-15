@@ -3,8 +3,6 @@ import { AsyncStorage, Button, Platform, StyleSheet, Text, View } from 'react-na
 import { Input } from 'react-native-elements';
 import _sumBy from 'lodash/sumBy';
 
-import * as WebBrowser from 'expo-web-browser';
-
 import { MonoText } from '../components/StyledText';
 import { TextList } from '../components';
 
@@ -15,6 +13,7 @@ export default function HomeScreen() {
 
   const initializeData = async () => {
     const storedExpenses = JSON.parse(await AsyncStorage.getItem('expenses'));
+
     setExpenses(storedExpenses ? storedExpenses : []);
     console.log('stored Expenses', storedExpenses);
   };
@@ -27,6 +26,7 @@ export default function HomeScreen() {
     if (name !== '' && amount > 0) {
       const expense = { name, amount };
       const updatedExpenses = [...expenses, expense];
+
       setExpenses(updatedExpenses);
       AsyncStorage.setItem('expenses', JSON.stringify(updatedExpenses));
       setName('');
