@@ -6,7 +6,7 @@ import _sumBy from 'lodash/sumBy';
 import { MonoText } from '../components/StyledText';
 import { TextList } from '../components';
 
-export default function HomeScreen() {
+export default function ExpensesScreen() {
   const [expenses, setExpenses] = useState([]);
   const [name, setName] = useState('');
   const [amount, setAmount] = useState('');
@@ -57,7 +57,7 @@ export default function HomeScreen() {
       </View>
 
       <View style={styles.getStartedContainer}>
-        <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
+        <View style={[styles.codeHighlightContainer, styles.ExpensesScreenFilename]}>
           <MonoText>Expenses list:</MonoText>
         </View>
       </View>
@@ -77,7 +77,7 @@ export default function HomeScreen() {
   );
 }
 
-HomeScreen.navigationOptions = {
+ExpensesScreen.navigationOptions = {
   header: null
 };
 
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 50
   },
-  homeScreenFilename: {
+ExpensesScreenFilename: {
     marginVertical: 7
   },
   tabBarInfoContainer: {

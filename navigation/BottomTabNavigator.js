@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
+import ExpensesScreen from '../screens/ExpensesScreen';
+import TimerScreen from '../screens/TimerScreen';
 import LinksScreen from '../screens/LinksScreen';
 
 const BottomTab = createBottomTabNavigator();
@@ -16,11 +17,19 @@ export default function BottomTabNavigator({ navigation, route }) {
   return (
     <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
       <BottomTab.Screen
-        name="Home"
-        component={HomeScreen}
+        name="Expenses"
+        component={ExpensesScreen}
         options={{
-          title: 'Get Started',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-code-working" />,
+          title: 'Truck Expenses',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-list" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Timer"
+        component={TimerScreen}
+        options={{
+          title: 'Truck Time',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-timer" />,
         }}
       />
       <BottomTab.Screen
@@ -39,8 +48,10 @@ function getHeaderTitle(route) {
   const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
 
   switch (routeName) {
-    case 'Home':
-      return 'How to get started';
+    case 'Expenses':
+      return 'Track your Expenses';
+    case 'Timer':
+      return 'Track your time';
     case 'Links':
       return 'Links to learn more';
   }
