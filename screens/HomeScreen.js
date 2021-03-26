@@ -48,12 +48,18 @@ export default function HomeScreen() {
     // input field gives a string but I need an integer in order to sum in total amount
   };
 
+  const handleClearExpenses = () => {
+    setExpenses([]);
+    AsyncStorage.removeItem('expenses');
+  };
+
   return (
     <View style={styles.flexContainer}>
       <View style={styles.welcomeContainer}>
-        <Input placeholder='Type of expense' value={name} onChangeText={handleName} />
-        <Input placeholder='amount' value={amount} onChangeText={handleAmount} />
-        <Button onPress={handleSubmitForm} title='Add'></Button>
+        <Input placeholder="Type of expense" value={name} onChangeText={handleName} />
+        <Input placeholder="amount" value={amount} onChangeText={handleAmount} />
+        <Button onPress={handleSubmitForm} title="Add"></Button>
+        <Button onPress={handleClearExpenses} title="Delete list"></Button>
       </View>
 
       <View style={styles.getStartedContainer}>
