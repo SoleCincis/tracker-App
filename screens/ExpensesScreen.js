@@ -15,7 +15,7 @@ export default function ExpensesScreen() {
     const storedExpenses = JSON.parse(await AsyncStorage.getItem('expenses'));
 
     setExpenses(storedExpenses ? storedExpenses : []);
-    console.log('stored Expenses', storedExpenses);
+    console.warn('stored Expenses', storedExpenses);
   };
 
   useEffect(() => {
@@ -32,17 +32,17 @@ export default function ExpensesScreen() {
       setName('');
       setAmount('');
     } else {
-      console.log('Invalid expense name or amount');
+      console.warn('Invalid expense name or amount');
     }
   };
 
   const handleName = (event) => {
-    console.log('Name ', event);
+    console.warn('Name ', event);
     setName(event);
   };
 
   const handleAmount = (event) => {
-    console.log('Amount', event);
+    console.warn('Amount', event);
     setAmount(parseInt(event, 10));
     // transforming string into integer value;
     // input field gives a string but I need an integer in order to sum in total amount
@@ -51,9 +51,9 @@ export default function ExpensesScreen() {
   return (
     <View style={styles.flexContainer}>
       <View style={styles.welcomeContainer}>
-        <Input placeholder='Type of expense' value={name} onChangeText={handleName} />
-        <Input placeholder='amount' value={amount} onChangeText={handleAmount} />
-        <Button onPress={handleSubmitForm} title='Add'></Button>
+        <Input placeholder="Type of expense" value={name} onChangeText={handleName} />
+        <Input placeholder="amount" value={amount} onChangeText={handleAmount} />
+        <Button onPress={handleSubmitForm} title="Add"></Button>
       </View>
 
       <View style={styles.getStartedContainer}>
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginHorizontal: 50
   },
-ExpensesScreenFilename: {
+  ExpensesScreenFilename: {
     marginVertical: 7
   },
   tabBarInfoContainer: {
