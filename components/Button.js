@@ -8,21 +8,22 @@ export const Button = ({ title, onPress }) => {
   return (
     <RNEButton
       buttonStyle={styles.buttonStyle}
+      titleStyle={styles.titleStyle}
+      containerStyle={styles.containerStyle}
       onPress={onPress}
       title={title}
+      type="outline"
     />
   );
 };
 
 const styles = StyleSheet.create({
   buttonStyle: {
-    color = '#FFFFFF',
-    borderStyle: 'solid',
-    borderWidth: 1
+    borderColor: '#000000',
+    borderRadius: 50
   },
-
-  containerStyle: {
-    marginBottom: 21,
+  titleStyle: {
+    color: '#000000'
   }
 });
 

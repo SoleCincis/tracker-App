@@ -2,7 +2,7 @@ import * as React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-import { Button, ColorBox } from '../components';
+import { Button, ColorBox, ValueBox } from '../components';
 
 export default function ColorGeneratorScreen() {
 
@@ -23,26 +23,13 @@ export default function ColorGeneratorScreen() {
   return (
 
 
-    <View style={styles.colorsContainer}>
+    <View style={styles.container}>
       <ColorBox red />
-      <View style={styles.buttonsContainer}>
-        <Button title="-10" onPress={minusTen} />
-        <Button title="+10" onPress={plusTen} />
-      </View>
+      <ValueBox />
       <ColorBox green />
-      <View style={styles.buttonsContainer}>
-        <Button title="-10" onPress />
-        <Button title="+10" onPress />
-      </View >
+      <ValueBox />
       <ColorBox blu />
-      <View style={styles.buttonsContainer}>
-        <Button title="-10" onPress />
-        <Button title="+10" onPress />
-      </View>
-      <View style={styles.buttonsContainer}>
-        <Button title="random value" />
-        <Button title="generated color" />
-      </View>
+      <ValueBox />
     </View>
 
 
@@ -51,7 +38,7 @@ export default function ColorGeneratorScreen() {
 }
 
 const styles = StyleSheet.create({
-  colorsContainer: {
+  container: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-around',

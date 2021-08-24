@@ -4,8 +4,9 @@ import styled, { css } from 'styled-components';
 
 export const ColorBox = styled.View`
     flex: 1;
-    maxHeight: 50px;
-    maxWidth: 50px;
+    position: relative;
+    maxHeight: 70px;
+    maxWidth: 70px;
 
   ${(props) =>
     props.red &&
