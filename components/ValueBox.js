@@ -1,19 +1,34 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { Button } from './Button';
 
-export const ValueBox = () => {
+export default function ValueBox() {
+
+  const [value, setValue] = useState(0);
+
+
+  const plusTen = (value) => {
+    console.warn('before', value);
+    setValue (value + 10)
+    console.warn('plusTen', value);
+  };
+
+  const minusTen = (value) => {
+    // !0 <= value >= 255
+    setValue(value - 10)
+  };
+
 
   return (
     <View style={styles.container}>
 
-      <Button title="-10" onPress />
+      <Button title="-10" onPress={plusTen} />
       <View>
-        <Text style={styles.value}>10</Text>
+        <Text style={styles.value}>{value}</Text>
       </View>
-      <Button title="+10" onPress />
+      <Button title="+10" onPress={minusTen} />
 
     </View>
   );
@@ -40,18 +55,3 @@ Button.propTypes = {
   title: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
 };
-
-
-// const plusTen = (value) => {
-  //   !0 <= value >= 255
-  //   let increasedValue = value + 10
-  //   return increasedValue
-
-  // };
-
-  // const minusTen = (value) => {
-  //   !0 <= value >= 255
-  //   let decreased = value - 10
-  //   return decreased
-
-  // };
