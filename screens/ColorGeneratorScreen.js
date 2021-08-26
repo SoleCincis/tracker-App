@@ -6,17 +6,40 @@ import { Button, ButtonMinus, ButtonPlus, ColorBox, ValueBox } from '../componen
 
 export default function ColorGeneratorScreen() {
 
-  const [value, setValue] = useState(5);
+  const [RedValue, setRedValue] = useState(5);
+  const [GreenValue, setGreenValue] = useState(5);
+  const [BluValue, setBluValue] = useState(5);
 
 
-  const plusTen = () => setValue(value + 10);
-  if (value > 255) {
-   setValue(255)
+  const plusTenRed = () => setRedValue(RedValue + 10);
+  if (RedValue > 255) {
+    setRedValue(255)
   }
-  const minusTen = () => setValue(value - 10);
-  if (value < 0) {
-    setValue(0)
+  const minusTenRed = () => setRedValue(RedValue - 10);
+  if (RedValue < 0) {
+    setRedValue(0)
   }
+
+  const plusTenGreen = () => setGreenValue(GreenValue + 10);
+  if (GreenValue > 255) {
+    setGreenValue(255)
+  }
+  const minusTenGreen = () => setGreenValue(GreenValue - 10);
+  if (GreenValue < 0) {
+    setGreenValue(0)
+  }
+
+
+  const plusTenBlu = () => setBluValue(BluValue + 10);
+  if (BluValue > 255) {
+    setBluValue(255)
+  }
+  const minusTenBlu = () => setBluValue(BluValue - 10);
+  if (BluValue < 0) {
+    setBluValue(0)
+  }
+
+
 
 
   return (
@@ -25,21 +48,21 @@ export default function ColorGeneratorScreen() {
     <View style={styles.container}>
       <ColorBox red />
       <View style={styles.valueContainer}>
-        <Button title="-10" onPress={minusTen} />
-        <Text style={styles.value}>{value}</Text>
-        <Button title="+10" onPress={plusTen} />
+        <Button title="-10" onPress={minusTenRed} />
+        <Text style={styles.value}>{RedValue}</Text>
+        <Button title="+10" onPress={plusTenRed} />
       </View>
       <ColorBox green />
       <View style={styles.valueContainer}>
-        <Button title="-10" onPress={minusTen} />
-        <Text style={styles.value}>{value}</Text>
-        <Button title="+10" onPress={plusTen} />
+        <Button title="-10" onPress={minusTenGreen} />
+        <Text style={styles.value}>{GreenValue}</Text>
+        <Button title="+10" onPress={plusTenGreen} />
       </View>
       <ColorBox blu />
       <View style={styles.valueContainer}>
-        <Button title="-10" onPress={minusTen} />
-        <Text style={styles.value}>{value}</Text>
-        <Button title="+10" onPress={plusTen} />
+        <Button title="-10" onPress={minusTenBlu} />
+        <Text style={styles.value}>{BluValue}</Text>
+        <Button title="+10" onPress={plusTenBlu} />
       </View>
     </View>
 
