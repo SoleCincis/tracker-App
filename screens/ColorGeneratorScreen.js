@@ -10,6 +10,19 @@ export default function ColorGeneratorScreen() {
   const [GreenValue, setGreenValue] = useState(5);
   const [BluValue, setBluValue] = useState(5);
 
+  function generateRandomInteger(max) {
+    let randomValue =  Math.floor(Math.random() * max) + 1;
+    console.log('randomValue', randomValue);
+    return randomValue
+  }
+
+  let randomValue = generateRandomInteger(255);
+
+  const applyRandomValue = () => {
+    setRedValue(randomValue)
+    setGreenValue(randomValue)
+    setBluValue(randomValue)
+  };
 
   const plusTenRed = () => setRedValue(RedValue + 10);
   if (RedValue > 255) {
@@ -64,6 +77,7 @@ export default function ColorGeneratorScreen() {
         <Text style={styles.value}>{BluValue}</Text>
         <Button title="+10" onPress={plusTenBlu} />
       </View>
+      <Button title="Random Value" onPress={applyRandomValue} />
     </View>
 
 
