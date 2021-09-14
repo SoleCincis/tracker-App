@@ -10,7 +10,7 @@ export const Button = ({ title, onPress }) => {
       buttonStyle={styles.buttonStyle}
       titleStyle={styles.titleStyle}
       containerStyle={styles.containerStyle}
-      onPress={onPress}
+
       title={title}
       type="outline"
     />
@@ -27,8 +27,5 @@ const styles = StyleSheet.create({
   }
 });
 
-Button.propTypes = {
-  title: PropTypes.string.isRequired,
-  onPress: PropTypes.func.isRequired,
-};
+
 
