@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
 import { Button, ButtonMinus, ButtonPlus, ColorBox, ValueBox } from '../components';
 
@@ -9,20 +8,21 @@ export default function ColorGeneratorScreen() {
   const [RedValue, setRedValue] = useState(5);
   const [GreenValue, setGreenValue] = useState(5);
   const [BluValue, setBluValue] = useState(5);
+  const [GeneratedColor, setGeneratedColor] = useState("rgb(255, 255, 255)");
 
-  function generateRandomInteger(max) {
-    let randomValue =  Math.floor(Math.random() * max) + 1;
-    console.log('randomValue', randomValue);
-    return randomValue
+  const generatedBackgroundColor = () => {
+    setGeneratedColor(`rgb(${RedValue}, ${GreenValue}, ${BluValue} )`)
   }
 
-  let randomValue = generateRandomInteger(255);
+  const randomValue = () => {
 
-  const applyRandomValue = () => {
-    setRedValue(randomValue)
-    setGreenValue(randomValue)
-    setBluValue(randomValue)
-  };
+    setRedValue(Math.floor(Math.random() * 256) + 1);
+
+    setGreenValue (Math.floor(Math.random() * 256) + 1);
+
+    setBluValue (Math.floor(Math.random() * 256) + 1);
+
+  }
 
   const plusTenRed = () => setRedValue(RedValue + 10);
   if (RedValue > 255) {
@@ -54,11 +54,10 @@ export default function ColorGeneratorScreen() {
 
 
 
-
   return (
 
 
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: GeneratedColor } ]}>
       <ColorBox red />
       <View style={styles.valueContainer}>
         <Button title="-10" onPress={minusTenRed} />
@@ -77,7 +76,10 @@ export default function ColorGeneratorScreen() {
         <Text style={styles.value}>{BluValue}</Text>
         <Button title="+10" onPress={plusTenBlu} />
       </View>
-      <Button title="Random Value" onPress={applyRandomValue} />
+      <View style={styles.buttonContainer}>
+        <Button title="Random Value" onPress={randomValue}/>
+        <Button title="New color" onPress={generatedBackgroundColor} />
+      </View>
     </View>
 
 
@@ -86,6 +88,11 @@ export default function ColorGeneratorScreen() {
 }
 
 const styles = StyleSheet.create({
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
   container: {
     flex: 1,
     flexDirection: 'column',
@@ -103,7 +110,7 @@ const styles = StyleSheet.create({
     marginVertical: 10
   },
   titleStyle: {
-    color: '#000000'
+    color: '#000'
   },
   value: {
     fontSize: 30,
@@ -111,3 +118,4 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15
   }
 });
+
