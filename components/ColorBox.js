@@ -1,30 +1,28 @@
-import * as React from 'react';
 import styled, { css } from 'styled-components';
 
 
 export const ColorBox = styled.View`
     flex: 1;
-    position: relative;
     maxHeight: 70px;
-    maxWidth: 70px;
+    maxWidth: 330px;
 
   ${(props) =>
-    props.red &&
+        props.red &&
     css`
      background-color: rgb(255, 0, 0);
     `};
     ${(props) =>
-    props.green &&
+        props.green &&
     css`
      background-color: rgb(0, 255, 0);
     `};
     ${(props) =>
-    props.blu &&
+        props.blu &&
     css`
      background-color: rgb(0, 0, 255);
     `};
     ${(props) =>
-    props.generated &&
+        props.generated &&
     css`
      background-color: rgb(0, 0, 0);
     `};
