@@ -21,9 +21,4 @@ export const ColorBox = styled.View`
     css`
      background-color: rgb(0, 0, 255);
     `};
-    ${(props) =>
-        props.generated &&
-    css`
-     background-color: rgb(0, 0, 0);
-    `};
 `;
