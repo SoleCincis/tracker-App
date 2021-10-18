@@ -25,7 +25,8 @@ export const Button = ({ title, onPress }) => {
 
   return (
   <Animated.View style={[styles.button, { transform: [{ scale }] }]}>
-    <TouchableHighlight onPressInn={onPressIn}
+    <TouchableHighlight
+        onPressInn={onPressIn}
         onPressOut={onPressOut}
         activeOpacity={1}>
       <RNEButton

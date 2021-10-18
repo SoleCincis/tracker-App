@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { Button, ButtonMinus, ButtonPlus, ColorBox, ValueBox } from '../components';
+import { Button,  ColorBox } from '../components';
+
+const plusTen = (value) => {
+  return value <= 245 ? value + 10 : value
+};
+const minusTen = (value) => {
+  return value >= 10 ? value - 10 : value
+  };
+
 
 export default function ColorGeneratorScreen() {
 
@@ -9,6 +17,7 @@ export default function ColorGeneratorScreen() {
   const [GreenValue, setGreenValue] = useState(5);
   const [BluValue, setBluValue] = useState(5);
   const [GeneratedColor, setGeneratedColor] = useState("rgb(255, 255, 255)");
+
 
   const generatedBackgroundColor = () => {
     setGeneratedColor(`rgb(${RedValue}, ${GreenValue}, ${BluValue} )`)
@@ -24,65 +33,32 @@ export default function ColorGeneratorScreen() {
 
   }
 
-  const plusTenRed = () => setRedValue(RedValue + 10);
-  if (RedValue > 255) {
-    setRedValue(255)
-  }
-  const minusTenRed = () => setRedValue(RedValue - 10);
-  if (RedValue < 0) {
-    setRedValue(0)
-  }
-
-  const plusTenGreen = () => setGreenValue(GreenValue + 10);
-  if (GreenValue > 255) {
-    setGreenValue(255)
-  }
-  const minusTenGreen = () => setGreenValue(GreenValue - 10);
-  if (GreenValue < 0) {
-    setGreenValue(0)
-  }
-
-
-  const plusTenBlu = () => setBluValue(BluValue + 10);
-  if (BluValue > 255) {
-    setBluValue(255)
-  }
-  const minusTenBlu = () => setBluValue(BluValue - 10);
-  if (BluValue < 0) {
-    setBluValue(0)
-  }
-
-
-
-  return (
-
+    return (
 
     <View style={[styles.container, { backgroundColor: GeneratedColor } ]}>
       <ColorBox red />
-      <View style={styles.valueContainer}>
-        <Button title="-10" onPress={minusTenRed} />
+        <View style={styles.valueContainer}>
+          <Button title="-10" onPress={() => setRedValue(minusTen)} />
         <Text style={styles.value}>{RedValue}</Text>
-        <Button title="+10" onPress={plusTenRed} />
+          <Button title="+10" onPress={() => setRedValue(plusTen)} />
       </View>
       <ColorBox green />
       <View style={styles.valueContainer}>
-        <Button title="-10" onPress={minusTenGreen} />
+          <Button title="-10" onPress={() => setGreenValue(minusTen)} />
         <Text style={styles.value}>{GreenValue}</Text>
-        <Button title="+10" onPress={plusTenGreen} />
+          <Button title="+10" onPress={() => setGreenValue(plusTen)} />
       </View>
-      <ColorBox blu />
+      <ColorBox blue />
       <View style={styles.valueContainer}>
-        <Button title="-10" onPress={minusTenBlu} />
+          <Button title="-10" onPress={() => setBluValue(minusTen)} />
         <Text style={styles.value}>{BluValue}</Text>
-        <Button title="+10" onPress={plusTenBlu} />
+        <Button title="+10" onPress={() => setBluValue(plusTen)} />
       </View>
       <View style={styles.buttonContainer}>
         <Button title="Random Value" onPress={randomValue}/>
         <Button title="New color" onPress={generatedBackgroundColor} />
       </View>
     </View>
-
-
 
   );
 }
