@@ -37,7 +37,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         component={ColorGeneratorScreen}
         options={{
           title: 'RGB generator',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-color-palette" />,
         }}
       />
     </BottomTab.Navigator>

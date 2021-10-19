@@ -7,6 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
+import NewColorScreen from './screens/NewColorScreen';
 import useLinking from './navigation/useLinking';
 
 const Stack = createStackNavigator();
@@ -50,8 +51,9 @@ export default function App(props) {
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <Stack.Navigator>
+          <Stack.Navigator mode="modal">
             <Stack.Screen name="Root" component={BottomTabNavigator} />
+            <Stack.Screen name="New color" component={NewColorScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>

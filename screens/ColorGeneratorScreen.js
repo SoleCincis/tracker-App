@@ -11,17 +11,23 @@ const minusTen = (value) => {
   };
 
 
-export default function ColorGeneratorScreen() {
+export default function ColorGeneratorScreen({ navigation }) {
 
   const [RedValue, setRedValue] = useState(5);
   const [GreenValue, setGreenValue] = useState(5);
   const [BluValue, setBluValue] = useState(5);
-  const [GeneratedColor, setGeneratedColor] = useState("rgb(255, 255, 255)");
+  const [GenerateColor, setGenerateColor] = useState("rgb(255, 255, 255)");
 
-
-  const generatedBackgroundColor = () => {
-    setGeneratedColor(`rgb(${RedValue}, ${GreenValue}, ${BluValue} )`)
+  const generateRGBColor = () => {
+    setGenerateColor(`rgb(${RedValue}, ${GreenValue}, ${BluValue} )`)
+    console.warn(GenerateColor)
   }
+
+  const newBackgroundColor = {
+    backgroundColor: GenerateColor
+  }
+
+  console.warn(newBackgroundColor.backgroundColor)
 
   const randomValue = () => {
 
@@ -35,7 +41,7 @@ export default function ColorGeneratorScreen() {
 
     return (
 
-    <View style={[styles.container, { backgroundColor: GeneratedColor } ]}>
+      <View style={[styles.container, newBackgroundColor]}>
       <ColorBox red />
         <View style={styles.valueContainer}>
           <Button title="-10" onPress={() => setRedValue(minusTen)} />
@@ -56,7 +62,8 @@ export default function ColorGeneratorScreen() {
       </View>
       <View style={styles.buttonContainer}>
         <Button title="Random Value" onPress={randomValue}/>
-        <Button title="New color" onPress={generatedBackgroundColor} />
+          <Button title="Generate" onPress={generateRGBColor} />
+          <Button title="New color" onPress={() => navigation.navigate('New color', newBackgroundColor.backgroundColor)} />
       </View>
     </View>
 
