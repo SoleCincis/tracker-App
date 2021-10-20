@@ -1,4 +1,4 @@
-// export * from './Button';
+export * from './ColorBox';
 // export * from './Icon';
 // export * from './Link';
 // export * from './Text';
