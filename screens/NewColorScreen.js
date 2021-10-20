@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import ColorGeneratorScreen from './ColorGeneratorScreen';
 
 export default function NewColorScreen({ navigation, route}) {
-  const { newBackgroundColor } = route.params;
-  console.warn(newBackgroundColor.backgroundColor)
+  const { backgroundColor } = route.params;
+
   return (
-    <View style={[styles.container, { backgroundColor: newBackgroundColor} ]}>
-      <Text>This screen is nested! Cool.. but why is my background color undefined? </Text>
+    <View style={[styles.container, { backgroundColor: backgroundColor} ]}>
+      <ColorGeneratorScreen navigation={navigation}  />
     </View>
   );
 }
