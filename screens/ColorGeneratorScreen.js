@@ -10,22 +10,25 @@ import { Button,  ColorBox } from '../components';
   const minusTen = (value) => {
     return Math.max(0, value - 10)
   };
+  const randomValue = () => {
+  return Math.floor(Math.random() * 256) + 1
+  };
 
 
 export default function ColorGeneratorScreen({ navigation, props }) {
 
-  const [RedValue, setRedValue] = useState(5);
-  const [GreenValue, setGreenValue] = useState(5);
-  const [BluValue, setBluValue] = useState(5);
+  const [RedValue, setRedValue] = useState(randomValue);
+  const [GreenValue, setGreenValue] = useState(randomValue);
+  const [BluValue, setBluValue] = useState(randomValue);
 
   const rgbColor = {
     backgroundColor: `rgb(${RedValue}, ${GreenValue}, ${BluValue} )`
   }
 
-  const randomValue = () => {
-    setRedValue(Math.floor(Math.random() * 256) + 1);
-    setGreenValue (Math.floor(Math.random() * 256) + 1);
-    setBluValue (Math.floor(Math.random() * 256) + 1);
+  const setRandomValue = () => {
+    setRedValue(randomValue);
+    setGreenValue(randomValue);
+    setBluValue(randomValue);
   }
 
     return (
@@ -33,7 +36,7 @@ export default function ColorGeneratorScreen({ navigation, props }) {
       <ColorBox red />
         <View style={styles.valueContainer}>
           <Button title="-10" onPress={() => setRedValue(minusTen)} />
-        <Text style={styles.value}>{RedValue}</Text>
+          <Text style={styles.value}>{RedValue}</Text>
           <Button title="+10" onPress={() => setRedValue(plusTen)} />
       </View>
       <ColorBox green />
@@ -49,7 +52,7 @@ export default function ColorGeneratorScreen({ navigation, props }) {
         <Button title="+10" onPress={() => setBluValue(plusTen)} />
       </View>
       <View style={styles.buttonContainer}>
-          <Button title="Random Value" onPress={randomValue}/>
+          <Button title="Random Value" onPress={setRandomValue}/>
           <Button title="New color" onPress={() => navigation.push('New color', rgbColor)} />
       </View>
     </View>
