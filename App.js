@@ -27,10 +27,10 @@ export default function App(props) {
         setInitialNavigationState(await getInitialState());
 
         // Load fonts
-        await Font.loadAsync({
-          ...Ionicons.font,
-          'Inter-Black': require('./assets/fonts/Inter-Black.otf'),
-        });
+        // await Font.loadAsync({
+        //   ...Ionicons.font,
+        //   'Inter-Black': require('./assets/fonts/Inter-Black.otf'),
+        // });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
         console.warn(e);
