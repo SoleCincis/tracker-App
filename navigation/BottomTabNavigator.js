@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+import BooksScreen from '../screens/BooksScreen';
 import ColorGeneratorScreen from '../screens/ColorGeneratorScreen';
 
 const BottomTab = createBottomTabNavigator();
@@ -25,10 +25,10 @@ export default function BottomTabNavigator({ navigation, route }) {
         }}
       />
       <BottomTab.Screen
-        name="Links"
-        component={LinksScreen}
+        name="Books"
+        component={BooksScreen}
         options={{
-          title: 'Resources',
+          title: 'Books',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
         }}
       />
@@ -50,8 +50,8 @@ function getHeaderTitle(route) {
   switch (routeName) {
     case 'Home':
       return 'How to get started';
-    case 'Links':
-      return 'Links to learn more';
+    case 'Books':
+      return 'List of Books';
     case 'Colors':
       return 'Generate a color';
   }
