@@ -21,16 +21,27 @@ export default function BooksScreen() {
     getBooks();
   }, []);
 
+  const authorName = data.map((e) => {
+    e.authors.map((author) => {
+      console.log(author.name)
+      return author.name
+    })
+     });
+
   return (
     <View style={{ flex: 1, padding: 24 }}>
       {isLoading ? <ActivityIndicator /> : (
-        <FlatList
+
+      <FlatList
           data={data}
           key={({ id }, index) => id}
           renderItem={({ item }) => (
-            <Text>{item.title}</Text>
+            <Text>
+              {item.title} [authors: { item.authors[0].name } and {item.authors.length - 1} more authors]
+            </Text>
           )}
         />
+
       )}
     </View>
   );
