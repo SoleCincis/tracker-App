@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function BooksScreen() {
+export default function BooksScreen({ navigation }) {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
@@ -23,6 +23,8 @@ export default function BooksScreen() {
   }, []);
 
 
+  const onPress = () => navigation.navigate('Detail', data);
+
   const renderItem = ({ item }) => {
 
     const authors = item.authors.length > 1
@@ -31,6 +33,7 @@ export default function BooksScreen() {
 
     const isbnArray = typeof item.availability === "object" ? item.availability : '' ;
     const isbn = typeof isbnArray.isbn === "string" ? `[ISBN: ${isbnArray.isbn}]` : null ;
+
 
     return (
       <View>
