@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
+import DetailScreen from './screens/DetailScreen';
 
 const Stack = createStackNavigator();
 
@@ -50,8 +51,9 @@ export default function App(props) {
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <Stack.Navigator>
+          <Stack.Navigator mode="modal">
             <Stack.Screen name="Root" component={BottomTabNavigator} />
+            <Stack.Screen name="Detail" component={DetailScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>
