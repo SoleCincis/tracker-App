@@ -15,7 +15,7 @@ import { Button,  ColorBox } from '../components';
   };
 
 
-export default function ColorGeneratorScreen({ navigation, props }) {
+export default function ColorGeneratorScreen({ navigation }) {
 
   const [RedValue, setRedValue] = useState(randomValue);
   const [GreenValue, setGreenValue] = useState(randomValue);
@@ -32,7 +32,7 @@ export default function ColorGeneratorScreen({ navigation, props }) {
   }
 
     return (
-      <View style={[styles.container, { backgroundColor: props }]}>
+      <View style={styles.container}>
       <ColorBox red />
         <View style={styles.valueContainer}>
           <Button title="-10" onPress={() => setRedValue(minusTen)} />
