@@ -1,50 +1,86 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import * as WebBrowser from 'expo-web-browser';
-import { RectButton, ScrollView } from 'react-native-gesture-handler';
 
-export default function ColorGeneratorScreen() {
+import { Button,  ColorBox } from '../components';
 
 
+  const plusTen = (value) => {
+    return Math.min(255, value + 10)
+  };
+  const minusTen = (value) => {
+    return Math.max(0, value - 10)
+  };
+  const randomValue = () => {
+  return Math.floor(Math.random() * 256) + 1
+  };
 
-  return (
-    <View style={styles.colorsContainer}>
-      <Ionicons name="md-color-palette" size={44} color="rgb(255, 0, 0)" />
-      <Ionicons name="md-color-palette" size={44} color="rgb(0, 255, 0)" />
-      <Ionicons name="md-color-palette" size={44} color="rgb(0, 0, 255)" />
+
+export default function ColorGeneratorScreen({ navigation }) {
+
+  const [RedValue, setRedValue] = useState(randomValue);
+  const [GreenValue, setGreenValue] = useState(randomValue);
+  const [BluValue, setBluValue] = useState(randomValue);
+
+  const rgbColor = {
+    backgroundColor: `rgb(${RedValue}, ${GreenValue}, ${BluValue} )`
+  }
+
+  const setRandomValue = () => {
+    setRedValue(randomValue);
+    setGreenValue(randomValue);
+    setBluValue(randomValue);
+  }
+
+    return (
+      <View style={styles.container}>
+      <ColorBox red />
+        <View style={styles.valueContainer}>
+          <Button title="-10" onPress={() => setRedValue(minusTen)} />
+          <Text style={styles.value}>{RedValue}</Text>
+          <Button title="+10" onPress={() => setRedValue(plusTen)} />
+      </View>
+      <ColorBox green />
+      <View style={styles.valueContainer}>
+          <Button title="-10" onPress={() => setGreenValue(minusTen)} />
+        <Text style={styles.value}>{GreenValue}</Text>
+          <Button title="+10" onPress={() => setGreenValue(plusTen)} />
+      </View>
+      <ColorBox blue />
+      <View style={styles.valueContainer}>
+          <Button title="-10" onPress={() => setBluValue(minusTen)} />
+        <Text style={styles.value}>{BluValue}</Text>
+        <Button title="+10" onPress={() => setBluValue(plusTen)} />
+      </View>
+      <View style={styles.buttonContainer}>
+          <Button title="Random Value" onPress={setRandomValue}/>
+          <Button title="New color" onPress={() => navigation.push('New color', rgbColor)} />
+      </View>
     </View>
+
   );
 }
 
 const styles = StyleSheet.create({
-  colorsContainer: {
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  container: {
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'space-between',
-    backgroundColor: '#fafafa',
-    marginHorizontal: 30,
+    justifyContent: 'space-around'
   },
-  contentContainer: {
-    paddingTop: 15,
+  valueContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 10
   },
-  optionIconContainer: {
-    marginRight: 12,
-  },
-  option: {
-    backgroundColor: '#fdfdfd',
-    paddingHorizontal: 15,
-    paddingVertical: 15,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderBottomWidth: 0,
-    borderColor: '#ededed',
-  },
-  lastOption: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
-  },
-  optionText: {
-    fontSize: 15,
-    alignSelf: 'flex-start',
-    marginTop: 1,
-  },
+  value: {
+    fontSize: 30,
+    fontStyle: 'normal',
+    paddingHorizontal: 15
+  }
 });
+
