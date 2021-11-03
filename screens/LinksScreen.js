@@ -20,7 +20,7 @@ export default function LinksScreen() {
       />
 
       <OptionButton
-        icon="ios-chatboxes"
+        icon="md-compass"
         label="Ask a question on the forums"
         onPress={() => WebBrowser.openBrowserAsync('https://forums.expo.io')}
         isLastOption
