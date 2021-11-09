@@ -37,9 +37,11 @@ export default function BooksScreen({ navigation }) {
 
     return (
       <View>
-        <Text style={styles.item}>
-          {item.title} {`\n`}{authors} {isbn}
-        </Text>
+        <TouchableOpacity onPress={onPress}>
+          <Text style={styles.item}>
+            {item.title} {`\n`}{authors} {isbn}
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   };
