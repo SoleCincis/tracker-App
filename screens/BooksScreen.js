@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+
 export default function BooksScreen({ navigation }) {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
@@ -22,10 +23,7 @@ export default function BooksScreen({ navigation }) {
     getBooks();
   }, []);
 
-
-  const onPress = () => navigation.navigate('Detail', data);
-
-  const renderItem = ({ item }) => {
+  function RenderItem({ item, navigation }) {
 
     const authors = item.authors.length > 1
       ? `[authors: ${item.authors[0].name} and ${item.authors.length - 1} more]`
@@ -34,10 +32,9 @@ export default function BooksScreen({ navigation }) {
     const isbnArray = typeof item.availability === "object" ? item.availability : '' ;
     const isbn = typeof isbnArray.isbn === "string" ? `[ISBN: ${isbnArray.isbn}]` : null ;
 
-
     return (
       <View>
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity onPress={() => navigation.push('Detail', item )}>
           <Text style={styles.item}>
             {item.title} {`\n`}{authors} {isbn}
           </Text>
@@ -47,13 +44,14 @@ export default function BooksScreen({ navigation }) {
   };
 
   return (
+
     <View style={{ flex: 1, padding: 24 }}>
 
       {isLoading ? <ActivityIndicator /> : (
         <FlatList
           data={data}
           key={({ id }, index) => id}
-          renderItem={renderItem}
+          renderItem={({ item }) => <RenderItem item={item} navigation={navigation} />}
         />
       )}
 

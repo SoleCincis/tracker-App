@@ -1,13 +1,18 @@
 import * as React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
-export default function DetailScreen({ navigation, route }) {
-  // const {  } = route.params;
-  // console.warn()
+export default function DetailScreen({  route }) {
+  const { title, edition_count, authors } = route.params;
+
+  const author = authors.map((author) => {
+    return author.name
+
+  });
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Book title</Text>
-      <Text style={styles.subtitle}>Authors: name, name, name..</Text>
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.subtitle}>{author.length > 1 ? `Authors: ${author}, ` : `Author: ${author}`}</Text>
+      <Text style={styles.subtitle}>Edition: {edition_count}</Text>
     </View>
   );
 }
