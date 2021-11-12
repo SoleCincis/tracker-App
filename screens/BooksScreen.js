@@ -5,11 +5,12 @@ import { ActivityIndicator, FlatList, StyleSheet, Text, TouchableOpacity, View }
 export default function BooksScreen({ navigation }) {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [limit, setLimit] = useState(10);
 
-  //async function is returning a promise , sempre
+  //async function is always returning promise
   const getBooks = async () => {
     try {
-      const response = await fetch('https://openlibrary.org/subjects/painting.json');
+      const response = await fetch(`https://openlibrary.org/subjects/painting.json?limit=${limit}`);
       const json = await response.json();
       setData(json.works);
     } catch (error) {
@@ -22,6 +23,14 @@ export default function BooksScreen({ navigation }) {
   useEffect(() => {
     getBooks();
   }, []);
+
+
+  const fetchMoreData = () => {
+    setLimit(limit + 10);
+    getBooks();
+    setLoading(false)
+  }
+
 
   function RenderItem({ item, navigation }) {
 
@@ -52,6 +61,10 @@ export default function BooksScreen({ navigation }) {
           data={data}
           key={({ id }, index) => id}
           renderItem={({ item }) => <RenderItem item={item} navigation={navigation} />}
+          onEndReached={fetchMoreData}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={<ActivityIndicator />}
+
         />
       )}
 
