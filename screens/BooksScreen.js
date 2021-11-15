@@ -7,7 +7,7 @@ export default function BooksScreen({ navigation }) {
   const [data, setData] = useState([]);
   const [limit, setLimit] = useState(10);
 
-  //async function is always returning promise
+  //async function is always returning a promise
   const getBooks = async () => {
     try {
       const response = await fetch(`https://openlibrary.org/subjects/painting.json?limit=${limit}`);
@@ -28,6 +28,15 @@ export default function BooksScreen({ navigation }) {
   const fetchMoreData = () => {
     setLimit(limit + 10);
     getBooks();
+    setLoading(false)
+  }
+
+
+  //Pull-to-refresh is a touchscreen gesture that retrieves
+  //all the latest data and updates the currently available data in the app
+  const pullToRefresh = () => {
+    getBooks();// re render would be necessary
+    setData(data.reverse());
     setLoading(false)
   }
 
@@ -64,7 +73,8 @@ export default function BooksScreen({ navigation }) {
           onEndReached={fetchMoreData}
           onEndReachedThreshold={0.5}
           ListFooterComponent={<ActivityIndicator />}
-
+          onRefresh={getBooks}
+          refreshing={isLoading}
         />
       )}
 
